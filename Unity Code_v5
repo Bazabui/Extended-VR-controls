@@ -1,0 +1,85 @@
+using UnityEngine;
+using System.Collections;
+
+public class ControllerXB : MonoBehaviour {
+
+	public float walkRotationSpeed = 1;
+	public float walkSpeed = 1;
+	public float rotationLimit = 40;
+
+	public Camera vrCam;
+
+	private GameObject c;
+
+	// Use this for initialization
+	void Start () {
+
+		Transform[] allChildren = GetComponentsInChildren<Transform>();
+
+		foreach (Transform child in allChildren) {
+
+			Debug.Log (child.name);
+
+			if (child.name == "Camera Container")
+				c = child.gameObject;
+			
+		}
+        
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Walk ();
+		Look ();
+	}
+
+	
+
+	private void Walk() {
+        
+        if ( Input.GetAxisRaw ("Horizontal") > 0f || Input.GetAxisRaw ("Horizontal") < 0f ) {
+			Debug.Log ("1");
+           transform.Rotate(0f,Input.GetAxisRaw ("Horizontal") * walkRotationSpeed,0f,Space.Self);
+		}
+
+        if ( Input.GetAxisRaw ("Vertical") > 0f || Input.GetAxisRaw ("Vertical") < 0f ) {
+			Debug.Log ("2");
+			transform.Translate(Input.GetAxisRaw("Vertical") * walkSpeed, 0f, 0f, Space.Self);
+        }
+
+	}
+    
+    private void Look() {
+		
+		if (Input.GetAxisRaw ("Horizontal2") > 0f || Input.GetAxisRaw ("Horizontal2") < 0f ) {
+			Debug.Log ("3");
+			float yRotation = (Input.GetAxisRaw ("Horizontal2") * 10) * -1;
+
+
+			if (transform.localEulerAngles.x < rotationLimit || transform.localEulerAngles.x > (360 - rotationLimit) && transform.localEulerAngles.x < 360) {
+//				transform.Rotate(new Vector3(0f, 0f, yRotation) );
+//				c.transform.localRotation
+//				c.transform.
+			}
+
+		} else {
+            transform.localEulerAngles = new Vector3 (0f, transform.localEulerAngles.y, 0f);
+		}
+
+//		if(Input.GetAxisRaw ("Vertical2") > 0f || Input.GetAxisRaw ("Vertical2") < 0f) {
+//
+//			Debug.Log ("4");
+//            float xRotation = Input.GetAxisRaw ("Vertical2") * 10;
+//
+//
+//			if (transform.localEulerAngles.y < rotationLimit || transform.localEulerAngles.y > (360 - rotationLimit) && transform.localEulerAngles.y < 360) {
+//                c.transform.Rotate(0f,xRotation,0f,Space.World);
+//			}
+//
+//		} else {
+//			c.transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 0f, 0f);
+//		}
+
+	}
+
+}
