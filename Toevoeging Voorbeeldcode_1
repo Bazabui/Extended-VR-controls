@@ -1,0 +1,4 @@
+void Awake () {
+			Debug.Log("In Away for Fly Control");
+			eye = GameObject.FindWithTag ("Camera");
+}
