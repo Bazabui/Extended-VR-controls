@@ -1,0 +1,41 @@
+using UnityEngine;
+using System.Collections;
+
+public class FreeLook : MonoBehaviour
+{
+    public float keySpeed = 10;
+    public float mouseSpeed = 1.25f;
+    public GameObject eye;
+
+    private Quaternion originalRotation;
+    private Vector2 angle = new Vector2(0f, 0f);
+    private Vector2 minAngle = new Vector2(-360f, -90f);
+    private Vector2 maxAngle = new Vector2(360f, 90f);
+    private float limit = 360f;
+
+    // Use this for initialization
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        originalRotation = transform.localRotation;
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Strafe(-keySpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            Strafe(keySpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.W))
+        {   
+            Fly(keySpeed * Time.deltaTime);
+        }	
+        if (Input.GetKey(KeyCode.S))
+        {
+            Fly(-keySpeed * Time.deltaTime);
+        }
